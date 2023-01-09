@@ -87,11 +87,11 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
-let possibleCharacters = "";
-
+let possibleCharacters = [];
+let length;
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var length = prompt("How many charcters would you like your password to be?(Between 10 and 64)");
+ length = prompt("How many charcters would you like your password to be?(Between 10 and 64)");
   length = parseInt(length);
   if (length < 10 || length > 64) {
     alert("Password must be between 10 and 64 charcters long")
@@ -110,28 +110,36 @@ function getPasswordOptions() {
       getPasswordOptions();
      }
      if (lowerCase) {
-      possibleCharacters += lowerCasedCharacters;
+      possibleCharacters = possibleCharacters.concat(lowerCasedCharacters);
      }
      if (upperCase) {
-      possibleCharacters += upperCasedCharacters;
+      possibleCharacters = possibleCharacters.concat(upperCasedCharacters);
      }
      if (numbers) {
-      possibleCharacters += numericCharacters;
+      possibleCharacters = possibleCharacters.concat(numericCharacters);
      }
      if (lowerCase) {
-      possibleCharacters += specialCharacters;
+      possibleCharacters = possibleCharacters.concat(specialCharacters);
      }
   alert("Your password is being prepared");
 }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
+let randomCharacter = arr [Math.floor(Math.random()* arr.length)];
+console.log("randomCher = ", randomCharacter);
+return randomCharacter;
 }
 
 // Function to generate password with user input
 function generatePassword() {
   getPasswordOptions()
+  let randomPassword = "";
+  for(let i=0; i<length; i++){
+  randomPassword += getRandom(possibleCharacters);
+  }
+ 
+  return randomPassword;
 }
 
 // Get references to the #generate element
