@@ -87,9 +87,13 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
+// possibleCharacters refer to the choices made by the user via the getPasswordOptions function
 let possibleCharacters = [];
 let length;
+
+
 // Function to prompt user for password options
+// getPasswordOptions coverts the choices made by the user from a string to a number and stores them as a variable
 function getPasswordOptions() {
  length = prompt("How many charcters would you like your password to be?(Between 10 and 64)");
   length = parseInt(length);
@@ -101,12 +105,17 @@ function getPasswordOptions() {
   var lowerCase = confirm("Would you like your password to contain lowercase?");
   var upperCase = confirm("Uppercase in your password?")
   var numbers = confirm("What about numbers? You like numbers?");
-  var specialishCharcters = confirm("And finlly, what about those special charcters being apart of your password?")
+  var specialishCharacters = confirm("And finlly, what about those special charcters being apart of your password?")
+  // a loop is created for if the user replies false to all the confirm functions in the getPasswordOptions function which 
+  // brings them back to the beginning with a message to make the user aware
+
   if(lowerCase === false &&
      upperCase === false &&
      numbers === false &&
-     specialishCharcters === false){
+     specialishCharacters === false){
       alert("At least one type of charcters must be chosen")
+      
+      // once all qualifiers have been met, the users selections are ready to for our next function
       getPasswordOptions();
      }
      if (lowerCase) {
@@ -118,13 +127,14 @@ function getPasswordOptions() {
      if (numbers) {
       possibleCharacters = possibleCharacters.concat(numericCharacters);
      }
-     if (lowerCase) {
+     if (specialishCharacters) {
       possibleCharacters = possibleCharacters.concat(specialCharacters);
      }
   alert("Your password is being prepared");
 }
 
 // Function for getting a random element from an array
+// getRandom is the function that will create our password
 function getRandom(arr) {
 let randomCharacter = arr [Math.floor(Math.random()* arr.length)];
 console.log("randomCher = ", randomCharacter);
@@ -132,6 +142,8 @@ return randomCharacter;
 }
 
 // Function to generate password with user input
+// generatePasssword function takes the data created via getPasswordOptions and runs the getRandom function
+// on those values to create and return the new password to the user
 function generatePassword() {
   getPasswordOptions()
   let randomPassword = "";
