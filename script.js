@@ -87,16 +87,41 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
+let possibleCharacters = "";
 
 // Function to prompt user for password options
-document.getElementById("generate").onclick =
 function getPasswordOptions() {
-  var characters = prompt("How many charcters would you like your password to be?(Between 10 and 64)");
+  var length = prompt("How many charcters would you like your password to be?(Between 10 and 64)");
+  length = parseInt(length);
+  if (length < 10 || length > 64) {
+    alert("Password must be between 10 and 64 charcters long")
+    getPasswordOptions();
+  }
+
   var lowerCase = confirm("Would you like your password to contain lowercase?");
   var upperCase = confirm("Uppercase in your password?")
   var numbers = confirm("What about numbers? You like numbers?");
   var specialishCharcters = confirm("And finlly, what about those special charcters being apart of your password?")
-  alert("Your password is prepared");
+  if(lowerCase === false &&
+     upperCase === false &&
+     numbers === false &&
+     specialishCharcters === false){
+      alert("At least one type of charcters must be chosen")
+      getPasswordOptions();
+     }
+     if (lowerCase) {
+      possibleCharacters += lowerCasedCharacters;
+     }
+     if (upperCase) {
+      possibleCharacters += upperCasedCharacters;
+     }
+     if (numbers) {
+      possibleCharacters += numericCharacters;
+     }
+     if (lowerCase) {
+      possibleCharacters += specialCharacters;
+     }
+  alert("Your password is being prepared");
 }
 
 // Function for getting a random element from an array
@@ -106,7 +131,7 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-
+  getPasswordOptions()
 }
 
 // Get references to the #generate element
@@ -123,4 +148,4 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
 
-getPasswordOptions()
+
